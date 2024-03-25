@@ -27,7 +27,26 @@ root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
 ```
 
 [1. Create a database](./1-use_or_create_database)<br>
-Write a script that creates or uses the database `my_db`:
+Write a script that creates or uses the database `my_db`:<br>
+```
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# cat 0-list_databases | mongo
+MongoDB shell version v4.2.19
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("9c4faef5-db9a-49dc-82fa-0e42919824f6") }
+MongoDB server version: 4.2.19
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+bye
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# cat 1-use_or_create_database | mongo
+MongoDB shell version v4.2.19
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("30dcf9fa-3df0-4be5-a497-a0d9e378392d") }
+MongoDB server version: 4.2.19
+switched to db my_db
+bye
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+```
 
 [2. Insert document](./2-insert)<br>
 Write a script that inserts a document in the collection `school`:
