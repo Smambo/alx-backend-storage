@@ -81,7 +81,17 @@ root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
 [4. All matches](./4-match)<br>
 Write a script that lists all documents with `name="Holberton school"` in the collection `school`:
 
-* The database name will be passed as option of `mongo` command
+* The database name will be passed as option of `mongo` command <br>
+```
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# cat 4-match | mongo my_db
+MongoDB shell version v4.2.19
+connecting to: mongodb://127.0.0.1:27017/my_db?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("c225717a-8c5e-4cfa-a608-cbc1a26495a5") }
+MongoDB server version: 4.2.19
+{ "_id" : ObjectId("66015bc61a53cbc271d81fce"), "name" : "Holberton school" }
+bye
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+```
 
 [5. Count](./5-count)<br>
 Write a script that displays the number of documents in the collection `school`:
