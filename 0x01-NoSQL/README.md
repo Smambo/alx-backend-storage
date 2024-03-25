@@ -49,7 +49,17 @@ root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
 ```
 
 [2. Insert document](./2-insert)<br>
-Write a script that inserts a document in the collection `school`:
+Write a script that inserts a document in the collection `school`:<br>
+```
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# cat 2-insert | mongo my_db
+MongoDB shell version v4.2.19
+connecting to: mongodb://127.0.0.1:27017/my_db?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("243c11f8-4c3d-4142-becc-4d0d15da5a35") }
+MongoDB server version: 4.2.19
+WriteResult({ "nInserted" : 1 })
+bye
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+```
 
 * The document must have one attribute `name` with value “Holberton school”
 * The database name will be passed as option of `mongo` command
