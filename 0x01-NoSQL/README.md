@@ -50,6 +50,8 @@ root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
 
 [2. Insert document](./2-insert)<br>
 Write a script that inserts a document in the collection `school`:<br>
+* The document must have one attribute `name` with value “Holberton school”
+* The database name will be passed as option of `mongo` command <br>
 ```
 root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# cat 2-insert | mongo my_db
 MongoDB shell version v4.2.19
@@ -61,13 +63,20 @@ bye
 root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
 ```
 
-* The document must have one attribute `name` with value “Holberton school”
-* The database name will be passed as option of `mongo` command
-
 [3. All documents](./3-all)<br>
 Write a script that lists all documents in the collection `school`:
 
-* The database name will be passed as option of `mongo` command
+* The database name will be passed as option of `mongo` command <br>
+```
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# cat 3-all | mongo my_db
+MongoDB shell version v4.2.19
+connecting to: mongodb://127.0.0.1:27017/my_db?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("785c1a3b-c04a-4718-8007-90084665f242") }
+MongoDB server version: 4.2.19
+{ "_id" : ObjectId("66015bc61a53cbc271d81fce"), "name" : "Holberton school" }
+bye
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+```
 
 [4. All matches](./4-match)<br>
 Write a script that lists all documents with `name="Holberton school"` in the collection `school`:
