@@ -185,7 +185,31 @@ Write a Python function that inserts a new document in a collection based on kwa
 
 * Prototype: `def insert_school(mongo_collection, **kwargs):`
 * `mongo_collection` will be the `pymongo` collection object
-* Returns the new `_id`
+* Returns the new `_id` <br>
+```
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# cat 9-main.py
+#!/usr/bin/env python3
+""" 9-main """
+from pymongo import MongoClient
+list_all = __import__('8-all').list_all
+insert_school = __import__('9-insert_school').insert_school
+
+if __name__ == "__main__":
+    client = MongoClient('mongodb://127.0.0.1:27017')
+    school_collection = client.my_db.school
+    new_school_id = insert_school(school_collection, name="UCSF", address="505 Parnassus Ave")
+    print("New school created: {}".format(new_school_id))
+
+    schools = list_all(school_collection)
+    for school in schools:
+        print("[{}] {} {}".format(school.get('_id'), school.get('name'), school.get('address', "")))
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# ./9-main.py
+New school created: 660186909788f6f8d2515c5d
+[66018369500c665e4118469c] Holberton school
+[660186909788f6f8d2515c5d] UCSF 505 Parnassus Ave
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+```
 
 [10. Change school topics](./10-update_topics.py)<br>
 Write a Python function that changes all topics of a school document based on the name:
