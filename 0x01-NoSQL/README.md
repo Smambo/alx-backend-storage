@@ -217,14 +217,76 @@ Write a Python function that changes all topics of a school document based on th
 * Prototype: `def update_topics(mongo_collection, name, topics):`
 * `mongo_collection` will be the `pymongo` collection object
 * `name` (string) will be the school name to update
-* `topics` (list of strings) will be the list of topics approached in the school
+* `topics` (list of strings) will be the list of topics approached in the school <br>
+```
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# cat 10-main.py
+#!/usr/bin/env python3
+""" 10-main """
+from pymongo import MongoClient
+list_all = __import__('8-all').list_all
+update_topics = __import__('10-update_topics').update_topics
+
+if __name__ == "__main__":
+    client = MongoClient('mongodb://127.0.0.1:27017')
+    school_collection = client.my_db.school
+    update_topics(school_collection, "Holberton school", ["Sys admin", "AI", "Algorithm"])
+
+    schools = list_all(school_collection)
+    for school in schools:
+        print("[{}] {} {}".format(school.get('_id'), school.get('name'), school.get('topics', "")))
+
+    update_topics(school_collection, "Holberton school", ["iOS"])
+
+    schools = list_all(school_collection)
+    for school in schools:
+        print("[{}] {} {}".format(school.get('_id'), school.get('name'), school.get('topics', "")))
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# ./10-main.py
+[66018369500c665e4118469c] Holberton school ['Sys admin', 'AI', 'Algorithm']
+[6601c79185403e21f717c328] UCSF
+[66018369500c665e4118469c] Holberton school ['iOS']
+[6601c79185403e21f717c328] UCSF
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+```
 
 [11. Where can I learn Python?](./11-schools_by_topic.py)<br>
 Write a Python function that returns the list of school having a specific topic:
 
 * Prototype: `def schools_by_topic(mongo_collection, topic):`
 * `mongo_collection` will be the `pymongo` collection object
-* `topic` (string) will be topic searched
+* `topic` (string) will be topic searched <br>
+```
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# cat 11-main.py
+#!/usr/bin/env python3
+""" 11-main """
+from pymongo import MongoClient
+list_all = __import__('8-all').list_all
+insert_school = __import__('9-insert_school').insert_school
+schools_by_topic = __import__('11-schools_by_topic').schools_by_topic
+
+if __name__ == "__main__":
+    client = MongoClient('mongodb://127.0.0.1:27017')
+    school_collection = client.my_db.school
+
+    j_schools = [
+        { 'name': "Holberton school", 'topics': ["Algo", "C", "Python", "React"]},
+        { 'name': "UCSF", 'topics': ["Algo", "MongoDB"]},
+        { 'name': "UCLA", 'topics': ["C", "Python"]},
+        { 'name': "UCSD", 'topics': ["Cassandra"]},
+        { 'name': "Stanford", 'topics': ["C", "React", "Javascript"]}
+    ]
+    for j_school in j_schools:
+        insert_school(school_collection, **j_school)
+
+    schools = schools_by_topic(school_collection, "Python")
+    for school in schools:
+        print("[{}] {} {}".format(school.get('_id'), school.get('name'), school.get('topics', "")))
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# ./11-main.py
+[6601c9b0bc860ad3075c5315] Holberton school ['Algo', 'C', 'Python', 'React']
+[6601c9b1bc860ad3075c5317] UCLA ['C', 'Python']
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+```
 
 [12. Log stats](./12-log_stats.py)<br>
 Write a Python script that provides some stats about Nginx logs stored in MongoDB:
