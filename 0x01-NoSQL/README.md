@@ -96,19 +96,64 @@ root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
 [5. Count](./5-count)<br>
 Write a script that displays the number of documents in the collection `school`:
 
-* The database name will be passed as option of `mongo` command
+* The database name will be passed as option of `mongo` command <br>
+```
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# cat 5-count | mongo my_db
+MongoDB shell version v4.2.19
+connecting to: mongodb://127.0.0.1:27017/my_db?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("f866b90f-39e3-48e9-90c6-e661fab667b6") }
+MongoDB server version: 4.2.19
+1
+bye
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+```
 
 [6. Update](./6-update)<br>
 Write a script that adds a new attribute to a document in the collection `school`:
 
 * The script should update only document with `name="Holberton school"` (all of them)
 * The update should add the attribute `address` with the value “972 Mission street”
-* The database name will be passed as option of `mongo` command
+* The database name will be passed as option of `mongo` command <br>
+```
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# cat 6-update | mongo my_db
+MongoDB shell version v4.2.19
+connecting to: mongodb://127.0.0.1:27017/my_db?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("e0127d4c-34a3-4535-86c8-b1ad91a3f63d") }
+MongoDB server version: 4.2.19
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+bye
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# cat 4-match | mongo my_db
+MongoDB shell version v4.2.19
+connecting to: mongodb://127.0.0.1:27017/my_db?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("04315185-49d4-48d6-932b-14460a3f6d20") }
+MongoDB server version: 4.2.19
+{ "_id" : ObjectId("66015bc61a53cbc271d81fce"), "name" : "Holberton school", "address" : "972 Mission street" }
+bye
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+```
 
 [7. Delete by match](./7-delete)<br>
 Write a script that deletes all documents with `name="Holberton school"` in the collection `school`:
 
-* The database name will be passed as option of `mongo` command
+* The database name will be passed as option of `mongo` command <br>
+```
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# cat 7-delete | mongo my_db
+MongoDB shell version v4.2.19
+connecting to: mongodb://127.0.0.1:27017/my_db?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("4c257410-4429-4ea3-9699-daa5e92d8c49") }
+MongoDB server version: 4.2.19
+{ "acknowledged" : true, "deletedCount" : 1 }
+bye
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# cat 4-match | mongo my_db
+MongoDB shell version v4.2.19
+connecting to: mongodb://127.0.0.1:27017/my_db?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("b76bc0c3-2b98-4316-854f-e62c064fbb7a") }
+MongoDB server version: 4.2.19
+bye
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+```
 
 [8. List all documents in Python](./8-all.py)<br>
 Write a Python function that lists all documents in a collection:
