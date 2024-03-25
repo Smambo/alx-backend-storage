@@ -12,7 +12,19 @@
 
 ### Tasks: <br>
 [0. List all databases](./0-list_databases)<br>
-Write a script that lists all databases in MongoDB.
+Write a script that lists all databases in MongoDB.<br>
+```
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# cat 0-list_databases | mongo
+MongoDB shell version v4.2.19
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("7569e7e9-a907-471a-bfaa-0429258513cf") }
+MongoDB server version: 4.2.19
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+bye
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+```
 
 [1. Create a database](./1-use_or_create_database)<br>
 Write a script that creates or uses the database `my_db`:
