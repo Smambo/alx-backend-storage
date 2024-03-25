@@ -160,7 +160,25 @@ Write a Python function that lists all documents in a collection:
 
 * Prototype: `def list_all(mongo_collection):`
 * Return an empty list if no document in the collection
-* `mongo_collection` will be the `pymongo` collection object
+* `mongo_collection` will be the `pymongo` collection object <br>
+```
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# cat 8-main.py
+#!/usr/bin/env python3
+""" 8-main """
+from pymongo import MongoClient
+list_all = __import__('8-all').list_all
+
+if __name__ == "__main__":
+    client = MongoClient('mongodb://127.0.0.1:27017')
+    school_collection = client.my_db.school
+    schools = list_all(school_collection)
+    for school in schools:
+        print("[{}] {}".format(school.get('_id'), school.get('name')))
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# ./8-main.py
+[66018369500c665e4118469c] Holberton school
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+```
 
 [9. Insert a document in Python](./9-insert_school.py)<br>
 Write a Python function that inserts a new document in a collection based on kwargs:
