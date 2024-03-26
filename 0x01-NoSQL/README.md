@@ -301,4 +301,37 @@ Write a Python script that provides some stats about Nginx logs stored in MongoD
     * `method=GET`
     * `path=/status`
 You can use this dump as data sample: [dump.zip]()
-
+The output of your script <b>must be exactly the same as the example</b> <br>
+```
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# curl -o dump.zip -s "https://s3.amazonaws.com/intranet-projects-files/holbertonschool-webstack/411/dump.zip"
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# unzip dump.zip
+Archive:  dump.zip
+   creating: dump/
+   creating: dump/logs/
+  inflating: dump/logs/nginx.metadata.json
+  inflating: dump/logs/nginx.bson
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# mongorestore dump
+2024-03-26T04:39:53.176-0700    preparing collections to restore from
+2024-03-26T04:39:53.178-0700    reading metadata for logs.nginx from dump/logs/nginx.metadata.json
+2024-03-26T04:39:53.226-0700    restoring logs.nginx from dump/logs/nginx.bson
+2024-03-26T04:39:56.199-0700    [######..................]  logs.nginx  3.55MB/13.4MB  (26.4%)
+2024-03-26T04:39:59.198-0700    [############............]  logs.nginx  7.11MB/13.4MB  (52.9%)
+2024-03-26T04:40:02.198-0700    [##################......]  logs.nginx  10.2MB/13.4MB  (76.1%)
+2024-03-26T04:40:04.702-0700    [########################]  logs.nginx  13.4MB/13.4MB  (100.0%)
+2024-03-26T04:40:04.702-0700    no indexes to restore
+2024-03-26T04:40:04.702-0700    finished restoring logs.nginx (94778 documents, 0 failures)
+2024-03-26T04:40:04.702-0700    94778 document(s) restored successfully. 0 document(s) failed to restore.
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL# ./12-log_stats.py
+94778 logs
+Methods:
+        method GET: 93842
+        method POST: 229
+        method PUT: 0
+        method PATCH: 0
+        method DELETE: 0
+47415 status check
+root@5292f0d32cbc:/alx-backend-storage/0x01-NoSQL#
+```
