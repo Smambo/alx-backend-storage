@@ -18,7 +18,30 @@ Create a `Cache` class. In the `__init__` method, store an instance of the Redis
 
 Create a `store` method that takes a `data` argument and returns a string. The method should generate a random key (e.g. using `uuid`), store the input data in Redis using the random key and return the key.
 
-Type-annotate `store` correctly. Remember that `data` can be a `str`, `bytes`, `int` or `float`.
+Type-annotate `store` correctly. Remember that `data` can be a `str`, `bytes`, `int` or `float`.<br>
+```
+root@be9c7cae60b5:/alx-backend-storage/0x02-redis_basic# cat main.py
+#!/usr/bin/env python3
+"""
+Main file
+"""
+import redis
+
+Cache = __import__('exercise').Cache
+
+cache = Cache()
+
+data = b"hello"
+key = cache.store(data)
+print(key)
+
+local_redis = redis.Redis()
+print(local_redis.get(key))
+root@be9c7cae60b5:/alx-backend-storage/0x02-redis_basic# python3 main.py
+91d87db8-18b3-4455-bc36-ad2c85ee2546
+b'hello'
+root@be9c7cae60b5:/alx-backend-storage/0x02-redis_basic#
+```
 
 [1. Reading from Redis and recovering original type](./exercise.py)<br>
 Redis only allows to store string, bytes and numbers (and lists thereof). Whatever you store as single elements, it will be returned as a byte string. Hence if you store `"a"` as a UTF-8 string, it will be returned as `b"a"` when retrieved from the server.
@@ -59,7 +82,27 @@ Remember that the first argument of the wrapped function will be `self` which is
 
 Protip: when defining a decorator it is useful to use `functool.wraps` to conserve the original function’s name, docstring, etc. Make sure you use it as described [here](https://docs.python.org/3.7/library/functools.html#functools.wraps).
 
-Decorate `Cache.store` with `count_calls`.
+Decorate `Cache.store` with `count_calls`.<br>
+```
+root@be9c7cae60b5:/alx-backend-storage/0x02-redis_basic# cat 2-main.py
+#!/usr/bin/env python3
+""" Main file """
+
+Cache = __import__('exercise').Cache
+
+cache = Cache()
+
+cache.store(b"first")
+print(cache.get(cache.store.__qualname__))
+
+cache.store(b"second")
+cache.store(b"third")
+print(cache.get(cache.store.__qualname__))
+root@be9c7cae60b5:/alx-backend-storage/0x02-redis_basic# ./2-main.py
+b'1'
+b'3'
+root@be9c7cae60b5:/alx-backend-storage/0x02-redis_basic#
+```
 
 [3. Storing lists](./exercise.py)<br>
 Familiarize yourself with redis commands `RPUSH`, `LPUSH`, `LRANGE`, etc.
@@ -76,7 +119,36 @@ In the new function that the decorator will return, use `rpush` to append the in
 
 Execute the wrapped function to retrieve the output. Store the output using `rpush` in the `"...:outputs"` list, then return the output.
 
-Decorate `Cache.store` with `call_history`.
+Decorate `Cache.store` with `call_history`.<br>
+```
+root@be9c7cae60b5:/alx-backend-storage/0x02-redis_basic# cat 3-main.py
+#!/usr/bin/env python3
+""" Main file """
+
+Cache = __import__('exercise').Cache
+
+cache = Cache()
+
+s1 = cache.store("first")
+print(s1)
+s2 = cache.store("secont")
+print(s2)
+s3 = cache.store("third")
+print(s3)
+
+inputs = cache._redis.lrange("{}:inputs".format(cache.store.__qualname__), 0, -1)
+outputs = cache._redis.lrange("{}:outputs".format(cache.store.__qualname__), 0, -1)
+
+print("inputs: {}".format(inputs))
+print("outputs: {}".format(outputs))
+root@be9c7cae60b5:/alx-backend-storage/0x02-redis_basic# ./3-main.py
+286e440c-4930-424f-8dc7-fd2820cd29f2
+679bf83a-83f2-47f0-849f-0dae02572875
+5db34265-efd5-490a-b33a-3b7ff0a4df82
+inputs: [b"('first',)", b"('secont',)", b"('third',)"]
+outputs: [b'286e440c-4930-424f-8dc7-fd2820cd29f2', b'679bf83a-83f2-47f0-849f-0dae02572875', b'5db34265-efd5-490a-b33a-3b7ff0a4df82']
+root@be9c7cae60b5:/alx-backend-storage/0x02-redis_basic#
+```
 
 [4. Retrieving lists](./exercise.py)<br>
 In this tasks, we will implement a `replay` function to display the history of calls of a particular function.
