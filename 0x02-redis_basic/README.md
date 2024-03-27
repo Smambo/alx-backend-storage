@@ -1,4 +1,6 @@
 ## Redis basic <br>
+![image](https://github.com/Smambo/alx-backend-storage/assets/113464914/090212c8-fe55-42f5-95f4-666a2b93d9a3) <br>
+
 ### Learning Objectives
 * Learn how to use redis for basic operations
 * Learn how to use redis as a simple cache
