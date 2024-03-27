@@ -7,6 +7,21 @@ from functools import wraps
 from typing import Any, Callable, Union
 
 
+def count_calls(method: Callable) -> Callable:
+    """
+    Counts how many times methods of Cache class are called.
+    """
+    @wraps(method)
+    def invoker(self, *args, **kwargs) -> Any:
+        """
+        Invokes given method after incrementing call counter.
+        """
+        if isinstance(self._redis, redis.Redis):
+            self._redis.incr(method.__qualname__)
+        return (method(self, *args, **kwargs))
+    return (invoker)
+
+
 class Cache:
     """
     Class represents object for Redis data storage
@@ -16,6 +31,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb(True)
 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """Stores a value in Redis data storage and returns a key"""
         data_key = str(uuid.uuid4())
